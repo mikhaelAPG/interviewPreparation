@@ -2,56 +2,40 @@ import java.util.Scanner;
 
 public class PalindromeChecker {
 
-    public static boolean isAlphanumeric(char ch) {
-        return Character.isLetterOrDigit(ch);
-    }
+    /**
+     * Memeriksa apakah string yang diberikan adalah palindrome.
+     *
+     * @param value String yang akan diperiksa.
+     * @return true jika string adalah palindrome, false jika tidak.
+     */
+    public static boolean isPalindrome(String value) {
+        // Iterasi hanya sampai setengah panjang string
+        for (int i = 0; i < value.length() / 2; i++) {
+            int indexAwal = i;  // Indeks dari awal string
+            int indexAkhir = value.length() - i - 1;  // Indeks dari akhir string
 
-    public static char toLower(char ch) {
-        return Character.toLowerCase(ch);
-    }
-
-    public static boolean isPalindrome(String s) {
-        // Initialize pointers
-        int left = 0;
-        int right = s.length() - 1;
-
-        while (left < right) {
-            // Move left pointer to the next alphanumeric character
-            while (left < right && !isAlphanumeric(s.charAt(left))) {
-                left++;
+            // Membandingkan karakter dari awal dan akhir string
+            if (value.charAt(indexAwal) != value.charAt(indexAkhir)) {
+                return false;  // Jika karakter tidak sama, bukan palindrome
             }
-            // Move right pointer to the previous alphanumeric character
-            while (left < right && !isAlphanumeric(s.charAt(right))) {
-                right--;
-            }
-
-            // Compare characters in a case-insensitive manner
-            if (toLower(s.charAt(left)) != toLower(s.charAt(right))) {
-                return false;
-            }
-
-            // Move towards the center
-            left++;
-            right--;
         }
-
-        return true;
+        return true;  // Jika semua karakter cocok, maka string adalah palindrome
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Get user input
-        System.out.print("Enter a string to check if it's a palindrome: ");
-        String s = scanner.nextLine();
+        // Meminta pengguna untuk memasukkan string
+        System.out.println("Masukkan sebuah string untuk diperiksa apakah palindrome:");
+        String input = scanner.nextLine();  // Membaca input string dari pengguna
 
-        // Check if the input string is a palindrome
-        if (isPalindrome(s)) {
-            System.out.println("The string is a palindrome.");
+        // Memeriksa apakah input adalah palindrome
+        if (isPalindrome(input)) {
+            System.out.println(input + " adalah palindrome.");  // Jika ya, mencetak hasil
         } else {
-            System.out.println("The string is not a palindrome.");
+            System.out.println(input + " bukan palindrome.");  // Jika tidak, mencetak hasil
         }
 
-        scanner.close();
+        scanner.close();  // Menutup scanner setelah penggunaan
     }
 }
